@@ -1,0 +1,101 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+    <link rel="stylesheet" href="{%static 'css/index_style.css'%}" />
+    <style>
+      #sc3 {
+        background-image: url("{% static 'images/img-2.jpeg' %}");
+      }
+      #sc1 {
+        background-image: url("{%static 'images/img-1.jpg'%}");
+      }
+    </style>
+  </head>
+  <body>
+    <img src="{% static "images/loader.gif" %}" id="loader" alt="" />
+    <div id="bod" style="display: none">
+      <button
+        id="uparrow"
+        onclick="window.scrollTo({top:0,behavior:'smooth'});"
+      >
+        <p>⬆</p>
+      </button>
+      <section id="sc1">
+        <div id="header">
+          <p id="title">Your Mediator</p>
+          <a href="#"
+            ><button><p>Log in</p></button></a
+          >
+        </div>
+        <div class="co_p" style="padding-top: 15rem">
+          <p style="color: black; font-size:3rem;">Your Key to Exceptional Real Estate Experiences!</p>
+          <p style="color: black">
+            Welcome to ur Mediator, where your real estate journey begins with excellence. As your trusted partner in the world of property, we pride ourselves on delivering unparalleled service and expertise. Whether you're buying, selling, or investing, our team is dedicated to guiding you every step of the way. Experience the difference with us as we unlock doors to your dream properties and create lasting connections in the world of real estate. Welcome home to exceptional service, welcome to ur Mediator.
+          </p>
+        </div>
+      </section>
+      <section id="sec2">
+        <div class="co_p" style="margin-top: 5rem">
+          <p>Our Services</p>
+          <p>
+            Step into the realm of real estate excellence with ur Mediator, where every detail is crafted to perfection. At our core, we're more than just brokers; we're guardians of your dreams, offering trusted guidance and empowering you with the knowledge you need to make informed decisions. Our commitment extends beyond mere transactions; it encompasses a dedication to providing access to government-subsidized housing, ensuring that you secure the finest properties at prices that defy market norms.
+
+            With us, it's not just about buying or selling; it's about orchestrating unforgettable experiences tailored to your unique needs. From meticulously curated listings to handling all the necessary paperwork with finesse, we orchestrate seamless journeys towards your ideal real estate destination.
+
+            Welcome to a world where elegance meets efficiency, where your aspirations find their perfect match. Welcome to ur Mediator, where your real estate dreams flourish into breathtaking realities
+
+          </p>
+        </div>
+      </section>
+      <section id="sc3">
+        <div class="co_p">
+          <p style="color: black">About us</p>
+          <p style="color: black">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad
+            incidunt, sequi iste modi non ducimus nihil eaque magni assumenda
+            exercitationem repudiandae dignissimos reiciendis rerum quam
+            dolores, quo sint nostrum atque?
+          </p>
+        </div>
+      </section>
+
+      <section id="sec4">
+        <div class="co_p" style="margin-top: -2rem">
+          <p style="margin-top:-4rem;">Your Mediator</p>
+          <p style="margin-top:.5rem; margin-bottom:4.5rem;">
+              Absolutely, our belief in what we do is the cornerstone of our commitment to helping more people like you. At ur Mediator, we firmly believe that everyone deserves to find their place in the world, a home where they can thrive and create cherished memories.
+
+              Our passion for real estate is fueled by a genuine desire to make a positive difference in people's lives. We understand the profound impact that finding the right property can have, not just on your present circumstances, but on your future aspirations as well.
+
+              By staying true to our principles and unwavering dedication, we strive to expand our reach and touch the lives of more individuals like you. We are committed to being a beacon of hope and support in your real estate journey, guiding you with integrity, transparency, and a genuine desire to see you succeed.
+
+              Every interaction with us is more than just a transaction; it's an opportunity to build lasting relationships grounded in trust and mutual respect. We take pride in being your partner throughout the entire process, from exploration to acquisition, and beyond.
+
+              Together, let's embark on this journey of discovery and transformation. Let's turn your real estate aspirations into a reality that surpasses your wildest dreams. With [Brokerage Name], you're not just another client; you're a valued member of our extended family, and your satisfaction is our greatest reward.
+                        
+            </p>
+        </div>
+        <footer><p>&circleddash; CopyRight 2024</p></footer>
+      </section>
+    </div>
+    <script>
+      setInterval(function () {
+        if (window.scrollY > 0) {
+          document.getElementById("header").style.backgroundColor = "black";
+          document.getElementById("uparrow").style.display = "block";
+        } else {
+          document.getElementById("header").style.backgroundColor = "";
+          document.getElementById("uparrow").style.display = "none";
+        }
+      }, 1);
+      setTimeout(function () {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("bod").style.display = "block";
+      }, 1500);
+    </script>
+  </body>
+</html>
