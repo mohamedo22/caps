@@ -1,28 +1,24 @@
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log in</title>
     <style>
+      *{
+        padding:0;
+        margin:0;
+      }
         #img
         {
-            width:110%;
-        }
-        #con_img
-        {
-            width:20rem;
-            height:40rem;
-            border-bottom-right-radius: 30%;
-            position: absolute;
-            top:0;
-            left:0;
-
-        }
+            width:15rem;
+            height:20rem;
+            border-bottom-right-radius: 90%;
+            filter: brightness(60%);
+        } 
     </style>
   </head>
   <body>
-    <div id="con_img">
-        <img src="{%static 'images/img-1.jpg'%}" id="img">
-    </div>
+      <img src="{%static 'images/img-1.jpg'%}" id="img">
   </body>
 </html>
