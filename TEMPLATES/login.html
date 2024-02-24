@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log in</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       body {
         background-color: gainsboro;
@@ -42,7 +43,7 @@
         border-radius: 12px;
         padding: 2rem 5rem;
       }
-      button {
+      #btn-form {
         background-color: transparent;
         outline: none;
         border: 1px solid black;
@@ -59,7 +60,7 @@
         width: 3rem;
         margin-left: -0.4rem;
       }
-      button::before {
+      #btn-form::before {
         content: "";
         position: absolute;
         width: 4rem;
@@ -70,11 +71,11 @@
         transition: 1s all;
       }
 
-      button:hover #pinb {
+      #btn-form:hover #pinb {
         color: white;
       }
 
-      button:hover::before {
+      #btn-form:hover::before {
         scale: 5;
       }
       /* button::after {
@@ -127,17 +128,53 @@
         font-size: 0.8em;
         color: silver;
       }
+  @media screen and (max-width: 768px) {
+    #img
+    {
+      opacity: 0;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1000px) {
+    #img
+    {
+      opacity: 1;
+    }
+  }
     </style>
   </head>
   <body>
     <img src="{%static 'images/img-1.jpg'%}" id="img" />
     <form method="post">
       {% csrf_token %}
-      <input type="text" placeholder=" " name="email" />
+      <input type="text" id="email-text" placeholder=" " name="email" />
       <p style="left: -2.5rem">E-mail</p>
-      <input type="password" placeholder=" " name="password" id="" />
+      <input type="password" id="password-text" placeholder=" " name="password" />
       <p>Password</p>
-      <button><div id="pinb">Log in</div></button>
+      <button id="btn-form" type="submit"><div id="pinb">Log in</div></button>
     </form>
+    <p id="check_v" hidden>{{check}}</p>
+    <script>
+        let checkv = document.getElementById("check_v");
+        if(checkv.textContent == "false")
+        {
+            Swal.fire({
+                title:"Error!",
+                text:"The Email or password is wrong!",
+                icon: "error",
+            });
+        }
+        let email = document.getElementById("email-text");
+        let pass = document.getElementById("password-text");
+        document.forms[0].onsubmit = function (ev) {
+            if (email.value == "" || pass.value == "") {
+                Swal.fire({
+                    title: "Error!",
+                    text: "There is an Empty field",
+                    icon: "error",
+                });
+                ev.preventDefault();
+            }
+        };
+    </script>
   </body>
 </html>

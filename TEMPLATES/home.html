@@ -1,11 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: gainsboro;
+        width: 100vw;
+        overflow-x: hidden;
+      }
+      header {
+        background-color: black;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        position: relative;
+      }
+      #btn-header {
+        background-color: transparent;
+        outline: none;
+        border: 1px solid rgb(255, 255, 255);
+        border-radius: 8px;
+        width: fit-content;
+        padding: 0.5rem 1rem;
+        position: relative;
+        cursor: pointer;
+        color: white;
+        letter-spacing: 2px;
+        border-radius: 8px;
+        position: absolute;
+        top: 0.5rem;
+        right: 0;
+        transition: all 800ms;
+      }
+      #btn-header:hover {
+        background-color: white;
+        color: black;
+        box-shadow: 0px 0px 10px 5px white;
+      }
+      #search-bar {
+        width: 20rem;
+        height: 2rem;
+        padding: 0.2rem 0.5rem;
+        border: none;
+        outline: none;
+        margin-top: 2.5rem;
+        margin-left: 39%;
+        background-color: rgba(192, 192, 192, 0.267);
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        color: white;
+      }
+      #search-bar + button {
+        border: none;
+        outline: none;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        height: 2rem;
+        margin-top: 2.5rem;
+        cursor: pointer;
+        width: 2rem;
+        background-color: rgba(70, 69, 69, 0.432);
+      }
+      #ul-header {
+        display: flex;
+        gap: 1px;
+        list-style: none;
+        width: fit-content;
+        margin: auto;
+        margin-top: 2rem;
+        transform: translateX(5px);
+      }
+      #ul-header button {
+        background-color: rgba(192, 192, 192, 0.164);
+        border: none;
+        outline: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        color: white;
+        letter-spacing: 2px;
+      }
+      .active {
+        box-shadow: 10px 0px 5px rgba(192, 192, 192, 0.164),
+          -10px 0px 5px rgba(192, 192, 192, 0.164);
+      }
+      #continer {
+        width: 83.5%;
+        height: fit-content;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 2rem;
+        overflow: hidden;
+      }
+      .flat-imgs {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 8px;
+      }
+      .flat {
+        background-color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        height: 20rem;
+      }
+      .lr {
+        position: absolute;
+        top: 50%;
+        left: 1rem;
+      }
+      .rr {
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+      }
+      @media screen and (max-width: 768px) {
+        #search-bar {
+          margin-left: 5%;
+        }
+        #continer {
+          padding-left: 5rem;
+        }
+      }
+      @media (min-width: 768px) and (max-width: 1000px) {
+        #search-bar {
+          margin-left: 30%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <form style="display: flex">
+        {% csrf_token %}
+        <input
+          type="search"
+          placeholder="search by city here"
+          name="search"
+          id="search-bar"
+        /><button type="submit">🔎</button>
+      </form>
+      <ul id="ul-header">
+        <a href="{%url 'home'%}"><button class="active">Flats</button></a>
+        <button>Social housing</button>
+      </ul>
+      <button id="btn-header">Add Flat</button>
+    </header>
+    <div id="continer">
+      {% for flat in all_flats %}
+      <div class="flat" pk="{{flat.pk}}">
+        <img src="{{flat.mainimage.url}}" class="flat-imgs" alt="" />
+        <p style="color: black; margin-top: 2rem">Price: ${{flat.price}}</p>
+        <p style="color: black; margin-top: 2rem">City: {{flat.city}}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <script>
+      if (document.getElementById("continer").length == 0) {
+        let p = document.createElement("p");
+        p.style.position = "absolute";
+        p.style.top = "50%";
+        p.style.left = "40%";
+        p.style.color = "rgba(192, 192, 192, 0.233)";
+        document.body.appendChild(p);
+      }
+    </script>
+  </body>
 </html>
