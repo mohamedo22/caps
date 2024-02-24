@@ -30,3 +30,10 @@ def home(request):
 @login_required(login_url='login')
 def adminhome(request):
     return render(request , 'admin-home.html')
+def detils(request):
+    pk = request.GET.get('flatpk')
+    flatcheck = flats.objects.filter(pk=pk).first()
+    if flatcheck:
+        images = flatcheck.flat_images_set.all() 
+        return render(request , 'detils.html' , {'flat':flatcheck , 'images':images}) 
+    return render(request , 'detils.html')

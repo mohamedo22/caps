@@ -110,6 +110,7 @@
         padding: 1rem 2rem;
         border-radius: 8px;
         height: 20rem;
+        cursor: pointer;
       }
       .lr {
         position: absolute;
@@ -171,6 +172,13 @@
         p.style.color = "rgba(192, 192, 192, 0.233)";
         document.body.appendChild(p);
       }
+      let allflats = document.querySelectorAll(".flat");
+      allflats.forEach(function (flat) {
+        flat.addEventListener("click", function () {
+          let pk = this.getAttribute("pk");
+          location.href = `/Detils/?flatpk=${pk}`;
+        });
+      });
     </script>
   </body>
 </html>

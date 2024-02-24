@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detils Page</title>
+    <style>
+      body {
+        background-color: gainsboro;
+      }
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        box-sizing: border-box;
+      }
+      .scroll-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 10px; /* Adjust as needed */
+      }
+
+      #container-imgs {
+        display: flex;
+        gap: 5px;
+        scroll-snap-type: x mandatory;
+      }
+
+      .imgs {
+        min-width: 30rem;
+        height: 25rem;
+        scroll-snap-align: start;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .window {
+        width: 30rem;
+        height: 23rem;
+        overflow: hidden;
+      }
+      .cont {
+        display: flex;
+        flex-wrap: wrap;
+        width: fit-content;
+        height: fit-content;
+        gap: 5px;
+        background-color: white;
+        margin: auto;
+        margin-top: 7rem;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        scale: 1.5;
+      }
+      #cont-data {
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem 2rem;
+      }
+      #cont-data * {
+        margin-top: 1.5rem;
+      }
+      .f {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 10px;
+      }
+      @media screen and (max-width: 768px) {
+        .cont {
+          scale: 0.8;
+          margin-left: -2rem;
+          margin-top: -2rem;
+          font-size: 1.5rem;
+        }
+        .window {
+          width: 24rem;
+        }
+      }
+      @media (min-width: 768px) and (max-width: 1000px) {
+        #search-bar {
+          margin-left: 30%;
+        }
+        .cont {
+          flex-direction: column;
+          scale: 1.1;
+          width: fit-content;
+          margin: auto;
+          margin-top: 3rem;
+        }
+        .window {
+          width: 24rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a
+      href="{%url 'home'%}"
+      style="
+        font-size: 2rem;
+        text-decoration: none;
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        z-index: 1;
+      "
+      >⬅</a
+    >
+    <div class="cont">
+      <div class="window">
+        <p id="numberof_images"></p>
+        <div class="scroll-wrapper">
+          <div id="container-imgs">
+            {% for img in images %}
+            <img src="{{img.image.url}}" alt="" class="imgs" />
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div id="cont-data">
+        <p>Price: ${{flat.price}}</p>
+        <p>Number of Bathrooms: {{flat.bathroomnumber}}</p>
+        <p>Number of Bedrooms: {{flat.bedroomnumber}}</p>
+        <p>Governorate: {{flat.gov}}</p>
+        <p>City: {{flat.city}}</p>
+        <p>Floor number: {{flat.floornumber}}</p>
+        {% if flat.with_f == True %}
+        <div class="f">
+          <p>Furnished:</p>
+          <p
+            style="
+              width: 1rem;
+              height: 1rem;
+              border-radius: 4px;
+              background-color: cornflowerblue;
+              margin-top: 1.6rem;
+            "
+          ></p>
+        </div>
+        {%endif%} {% if flat.with_f == False %}
+        <div class="f">
+          <p>Furnished:</p>
+          <p
+            style="
+              width: 1rem;
+              height: 1rem;
+              border-radius: 4px;
+              background-color: silver;
+              margin-top: 1.6rem;
+            "
+          ></p>
+        </div>
+        {%endif%}
+      </div>
+    </div>
+    <script>
+      let n = document.getElementById("container-imgs").children.length;
+      document.getElementById(
+        "numberof_images"
+      ).textContent = `Number of images / ${n}`;
+    </script>
+  </body>
+</html>
