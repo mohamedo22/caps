@@ -22,8 +22,8 @@ def login(request):
 def home(request):
     all_flats = flats.objects.all()
     search = request.GET.get('search')
-    s_f = flats.objects.filter(city=search).all()
-    if s_f:
+    if search is not None:
+        s_f = flats.objects.filter(city__icontains=search)
         return render(request, 'home.html', {'all_flats': s_f})
     return render(request, 'home.html', {'all_flats': all_flats})
 
@@ -37,3 +37,26 @@ def detils(request):
         images = flatcheck.flat_images_set.all() 
         return render(request , 'detils.html' , {'flat':flatcheck , 'images':images}) 
     return render(request , 'detils.html')
+def addflat(request):
+    if request.method=='POST':
+        price = request.POST.get('price')
+        bathnumbers = request.POST.get('bathnumbers')
+        bedroomnumber = request.POST.get('bedroomnumber')
+        gov = request.POST.get('gov')
+        city = request.POST.get('city')
+        floornumber = request.POST.get('floornumber')
+        withf = request.POST.get('withf')
+        phone = request.POST.get('phone')
+        maini = request.FILES.get('mainimage')
+        allim = request.FILES.getlist('images')
+        if withf ==  "True":
+            new_flat = flats(price=price , bathroomnumber = bathnumbers ,bedroomnumber=  bedroomnumber,gov=gov,city=city,floornumber=floornumber, with_f=True , active = False,phone=phone,mainimage=maini )
+            new_flat.save()
+        else:
+            new_flat = flats(price=price , bathroomnumber = bathnumbers ,bedroomnumber=  bedroomnumber,gov=gov,city=city,floornumber=floornumber, with_f=False , active = False,phone=phone,mainimage=maini )
+            new_flat.save()
+        for img in allim:
+            imge_f = flat_images(flat = new_flat , image=img )
+            imge_f.save()
+        return render(request , 'add-flat.html' , {'proccess':"true"})
+    return render(request , 'add-flat.html')

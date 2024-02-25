@@ -152,7 +152,7 @@
         <a href="{%url 'home'%}"><button class="active">Flats</button></a>
         <button>Social housing</button>
       </ul>
-      <button id="btn-header">Add Flat</button>
+      <a href="{% url "flat" %}"><button id="btn-header">Add Flat</button></a>
     </header>
     <div id="continer">
       {% for flat in all_flats %}

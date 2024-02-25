@@ -9,4 +9,5 @@ urlpatterns = [
     path('adminhome/' , adminhome , name='adminhome'),
     path('home/' , home , name='home'),
     path('Detils/' , detils , name='detils'),
+    path('addflat/' , addflat , name='flat'),
 ]
