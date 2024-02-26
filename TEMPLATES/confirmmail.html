@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign up</title>
+    <title>Log in</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       body {
@@ -24,7 +24,7 @@
       }
       input {
         padding: 10px;
-        width: 90%;
+        width: 8rem;
         height: 1rem;
         border: none;
         outline: none;
@@ -34,7 +34,7 @@
       form {
         width: fit-content;
         margin: auto;
-        margin-top: -12rem;
+        margin-top: -6rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -143,29 +143,12 @@
     </style>
   </head>
   <body>
-    <a
-      href="{%url 'login'%}"
-      style="
-        font-size: 2rem;
-        text-decoration: none;
-        position: absolute;
-        top: 0.5rem;
-        left: 0.5rem;
-        z-index: 1;
-      "
-      >⬅</a>
     <img src="{%static 'images/img-1.jpg'%}" id="img" />
     <form method="post">
       {% csrf_token %}
-      <input type="text" id="email-text" placeholder=" " name="email" />
-      <p style="left: -2.5rem">E-mail</p>
-      <input type="password" id="password-text" placeholder=" " name="password" />
-      <p>Password</p>
-      <input type="password" required id="conpassword-text" placeholder=" " />
-      <p style="margin-left:2rem;">confirm Password</p>
-      <input type="number" required id="nationalid" placeholder=" " name="nationalid" />
-      <p style="margin-left:3rem;">Enter your national ID</p>
-      <button id="btn-form" type="submit"><div id="pinb">Sign up</div></button>
+      <input type="text" id="code-text" placeholder=" " name="codeus" />
+      <p style="left: -2.5rem">Enter Code</p>
+      <button id="btn-form" type="submit"><div id="pinb">Log in</div></button>
     </form>
     <p id="check_v" hidden>{{check}}</p>
     <script>
@@ -174,16 +157,13 @@
         {
             Swal.fire({
                 title:"Error!",
-                text:"The Email or password is wrong!",
+                text:"wrong code",
                 icon: "error",
             });
         }
-        let email = document.getElementById("email-text");
-        let pass = document.getElementById("password-text");
-        let confirmpass = document.getElementById("conpassword-text");
-        let nationalid = document.getElementById("nationalid");
+        let email = document.getElementById("code-text");
         document.forms[0].onsubmit = function (ev) {
-            if (email.value == "" || pass.value == "") {
+            if (email.value == "") {
                 Swal.fire({
                     title: "Error!",
                     text: "There is an Empty field",
@@ -191,25 +171,6 @@
                 });
                 ev.preventDefault();
             }
-             else if(pass.value!=confirmpass.value)
-             {
-                Swal.fire({
-                    title: "Error!",
-                    text: "Password not match",
-                    icon: "error",
-                });
-                ev.preventDefault();
-             }
-             else if(nationalid.value.length!=14)
-             {
-                Swal.fire({
-                    title: "Error!",
-                    text: "National id not valied",
-                    icon: "error",
-                });
-                ev.preventDefault();
-             }
-            
         };
     </script>
   </body>

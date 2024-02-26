@@ -2,6 +2,7 @@ from django.db import models
 class users(models.Model):
     email=models.EmailField(max_length=254)
     password=models.TextField()
+    nationalid=models.CharField(max_length=100, null = True)
     def __str__(self) :
         return self.email
 class admins_s(models.Model):

@@ -10,4 +10,5 @@ urlpatterns = [
     path('home/' , home , name='home'),
     path('Detils/' , detils , name='detils'),
     path('addflat/' , addflat , name='flat'),
+    path('signup/' , signup , name='signup'),
 ]
