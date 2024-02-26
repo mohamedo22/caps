@@ -123,7 +123,8 @@
         transition: all 0.3s ease;
         pointer-events: none;
       }
-      input:focus + p {
+      input:focus + p,
+      input:not(:placeholder-shown) + p {
         top: -3.5rem;
         font-size: 0.8em;
         color: silver;

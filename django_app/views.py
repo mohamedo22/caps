@@ -4,6 +4,7 @@ from datetime import *
 from django.core.mail import send_mail
 from django.conf import settings
 import random
+from django_app import urls
 from django.contrib.auth.decorators import login_required
 def index(request):
     return render(request, 'index.html')
@@ -67,15 +68,24 @@ def signup(request):
        password = request.POST.get('password')
        nationalid = request.POST.get('nationalid')
        code = random.randint(5000,10000)
-       send_mail("Sign up code" , 'Your code is {code}' , settings.EMAIL_HOST_USER , [email], fail_silently=False)
-       return redirect(confirmmail(request , code , email , password , nationalid))
+       request.session['email'] = email
+       request.session['password'] = password
+       request.session['nationalid'] = nationalid
+       request.session['code'] = code
+       send_mail("Sign up code" , f'Your code is {code}' , settings.EMAIL_HOST_USER , [email], fail_silently=False)
+       return redirect(confirmmail)
     return render(request,'sign_up.html')
-def confirmmail(request,code,email,password,nationalid):
+def confirmmail(request):
     if request.method=="POST":
+        email = request.session.get('email')
+        password = request.session.get('password')
+        nationalid = request.session.get('nationalid')
+        code = request.session.get('code')
         codeuser = request.POST.get('codeus')
-        if code == codeuser:
+        if int(code) == int(codeuser):
             user = users(email=email,password=password,nationalid=nationalid)
             user.save()
+            return redirect(home)
         else:
             return render(request, 'confirmmail.html' , {'check':'false'})
     return render(request , 'confirmmail.html')
