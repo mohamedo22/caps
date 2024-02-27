@@ -34,7 +34,6 @@ def home(request):
         return render(request, 'home.html', {'all_flats': s_f})
     return render(request, 'home.html', {'all_flats': all_flats})
 
-@login_required(login_url='login')
 def adminhome(request):
     return render(request , 'admin-home.html')
 def detils(request):
