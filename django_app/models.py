@@ -24,4 +24,14 @@ class flats(models.Model):
 class flat_images(models.Model):
     flat = models.ForeignKey(flats, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='flat_images/')
-    
+class social_house(models.Model):
+    downpayment = models.IntegerField()
+    bathroomnumber=models.IntegerField()
+    bedroomnumber=models.IntegerField()
+    detiels = models.TextField()
+    city=models.CharField(max_length=50)
+    phone = models.CharField(max_length=30)
+    mainimage = models.ImageField(upload_to='social_house_mainimg/' , null = True)
+class socialhouse_images(models.Model):
+    social_house = models.ForeignKey(social_house, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='social_house_imgs/')

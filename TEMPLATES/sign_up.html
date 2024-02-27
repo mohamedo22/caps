@@ -141,9 +141,18 @@
       opacity: 1;
     }
   }
+  
+  #loader {
+    display: block;
+    width: fit-content;
+    margin: auto;
+    margin-top: 25%;
+  }
     </style>
   </head>
   <body>
+    <img src="{% static "images/loader.gif" %}" id="loader" alt="" />
+    <div id="bod" style="display: none">
     <a
       href="{%url 'login'%}"
       style="
@@ -169,7 +178,12 @@
       <button id="btn-form" type="submit"><div id="pinb">Sign up</div></button>
     </form>
     <p id="check_v" hidden>{{check}}</p>
+  </div>
     <script>
+      setTimeout(function () {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("bod").style.display = "block";
+      }, 1500);
         let checkv = document.getElementById("check_v");
         if(checkv.textContent == "false")
         {

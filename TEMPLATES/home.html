@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{%load static%}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -135,9 +136,18 @@
           margin-left: 30%;
         }
       }
+      
+  #loader {
+    display: block;
+    width: fit-content;
+    margin: auto;
+    margin-top: 25%;
+  }
     </style>
   </head>
   <body>
+    <img src="{% static "images/loader.gif" %}" id="loader" alt="" />
+    <div id="bod" style="display: none">
     <header>
       <form style="display: flex">
         {% csrf_token %}
@@ -163,7 +173,12 @@
       </div>
       {% endfor %}
     </div>
+  </div>
     <script>
+      setTimeout(function () {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("bod").style.display = "block";
+      }, 1500);
       if (document.getElementById("continer").length == 0) {
         let p = document.createElement("p");
         p.style.position = "absolute";

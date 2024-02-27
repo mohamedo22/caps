@@ -6,19 +6,24 @@ from django.conf import settings
 import random
 from django_app import urls
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 def index(request):
     return render(request, 'index.html')
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        check = users.objects.get(email=email , password = password)
-        check_admin = admins_s.objects.get(email=email , password = password)
-        if check:
-            return redirect(home)
-        elif check_admin:
-            return redirect(adminhome) 
-        else:
+        try:
+            check = users.objects.get(email=email , password = password)
+            if check:
+                return redirect(home)
+        except ObjectDoesNotExist:
+            return render(request, 'login.html' , {'check':'false'})
+        try:
+            check_admin = admins_s.objects.get(email=email , password = password)
+            if check_admin:
+                 return redirect(adminhome) 
+        except ObjectDoesNotExist:
             return render(request, 'login.html' , {'check':'false'})
     return render(request, 'login.html')
 def home(request):
