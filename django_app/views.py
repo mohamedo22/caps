@@ -35,6 +35,22 @@ def home(request):
     return render(request, 'home.html', {'all_flats': all_flats})
 
 def adminhome(request):
+    if request.method=='POST':
+        price = request.POST.get('price')
+        bathnumbers = request.POST.get('bathnumbers')
+        bedroomnumber = request.POST.get('bedroomnumber')
+        city = request.POST.get('city')
+        detils = request.POST.get('detils')
+        phone = request.POST.get('phone')
+        mainimage = request.FILES.get('mainimage')
+        allim = request.FILES.getlist('images')
+        if mainimage is not None:
+            new_social_house = social_house(downpayment=price,bathroomnumber=bathnumbers,bedroomnumber=bedroomnumber,detiels=detils,city=city,phone=phone,mainimage=mainimage)
+            new_social_house.save()
+            for img in allim:
+                new_img= socialhouse_images(social_house = new_social_house , image = img)
+                new_img.save()
+                return render(request , 'admin-home.html' , {'proccess':"true"})
     return render(request , 'admin-home.html')
 def detils(request):
     pk = request.GET.get('flatpk')
