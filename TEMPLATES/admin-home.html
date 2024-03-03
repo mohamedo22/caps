@@ -4,23 +4,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add flat</title>
+    <title>Admin home</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       body {
         background-color: gainsboro;
+        overflow-x: hidden;
+        width: 100vw;
       }
       * {
         padding: 0;
         margin: 0;
         font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
           sans-serif;
+          transition: all 800ms;
       }
       #img {
         width: 15rem;
         height: 20rem;
         border-bottom-right-radius: 90%;
         filter: brightness(60%);
+        position:relative;
+        z-index:0
       }
       input {
         padding: 10px;
@@ -30,6 +35,12 @@
         outline: none;
         border-bottom: 1px solid black;
         margin-bottom: 1rem;
+        background-color:transparent;
+      }
+      form *
+      {
+        position:relative;
+        z-index:2;
       }
       form {
         width: fit-content;
@@ -225,6 +236,25 @@
   background-color:black;
   border-radius: 8px;
 }
+#cont_of_cat
+{
+  display: flex;
+  width:fit-content;
+  gap: 30rem;
+}
+#orders
+  {
+    background-color: white;
+    border-radius: 10px;
+    width: 40vw;
+    height: 40vw;
+    padding: 3rem;
+    box-sizing: border-box;
+    margin-left:23rem;
+  }
+#add_social_house
+{
+}
   @media screen and (max-width: 768px) {
     header
     {
@@ -252,31 +282,38 @@
     <div id="bod" style="">
         <header>
             <ul id="ul-header">
-              <a href="{%url 'home'%}"><button >Flats</button></a>
+              <button >orders</button>
               <button class="active">Add Social housing</button>
+              <button >Social housing</button>
             </ul>
-          </header>
-    <img src="{%static 'images/img-1.jpg'%}" id="img" />
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <input type="number" id="price" required placeholder=" " name="price" />
-      <p style="left: -1.5rem">Down payment</p>
-      <input type="number" placeholder=" " required name="bathnumbers" >
-      <p style="left: -.1rem">Number of Bathrooms</p>
-      <input type="number" placeholder=" " required name="bedroomnumber" >
-      <p style="left: -.1rem">Number of Bedrooms</p>
-      <input type="text" placeholder=" " required name="city" id="">
-      <p style="left: -4rem">City</p>
-      <p style="left: -4rem;top:-.5rem;">The Deteils</p>
-      <textarea name="detils" style="margin-bottom:2rem;" id="" cols="40" rows="10"></textarea>
-      <input placeholder=" " style="margin-top:2rem;" type="number" required name="phone" >
-      <p>Phone number</p>
-      <div>Main image</div>
-      <input type="file" required name="mainimage"  id="">
-      <div>select images for flat</div>
-      <input type="file" required name="images" multiple id="">
-      <button id="btn-form" type="submit"><div id="pinb">Add</div></button>
-    </form>
+        </header>
+    <div id="cont_of_cat">   
+    <div id="orders">
+    </div>
+    <div id="add_social_house">      
+      <img src="{%static 'images/img-1.jpg'%}" id="img" />
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="number" id="price" required placeholder=" " name="price" />
+        <p style="left: -1.5rem">Down payment</p>
+        <input type="number" placeholder=" " required name="bathnumbers" >
+        <p style="left: -.1rem">Number of Bathrooms</p>
+        <input type="number" placeholder=" " required name="bedroomnumber" >
+        <p style="left: -.1rem">Number of Bedrooms</p>
+        <input type="text" placeholder=" " required name="city" id="">
+        <p style="left: -4rem">City</p>
+        <p style="left: -4rem;top:-.5rem;">The Deteils</p>
+        <textarea name="detils" style="margin-bottom:2rem;" id="" cols="40" rows="10"></textarea>
+        <input placeholder=" " style="margin-top:2rem;" type="number" required name="phone" >
+        <p>Phone number</p>
+        <div>Main image</div>
+        <input type="file" required name="mainimage"  id="">
+        <div>select images for flat</div>
+        <input type="file" required name="images" multiple id="">
+        <button id="btn-form" type="submit"><div id="pinb">Add</div></button>
+      </form>
+  </div>
+  </div> 
     <p id="check_proccess" hidden>{{proccess}}</p>
   </div>
     <script>

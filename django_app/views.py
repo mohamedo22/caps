@@ -27,7 +27,7 @@ def login(request):
             return render(request, 'login.html' , {'check':'false'})
     return render(request, 'login.html')
 def home(request):
-    all_flats = flats.objects.all()
+    all_flats = flats.objects.filter(active=True)   
     search = request.GET.get('search')
     if search is not None:
         s_f = flats.objects.filter(city__icontains=search)
@@ -35,6 +35,7 @@ def home(request):
     return render(request, 'home.html', {'all_flats': all_flats})
 
 def adminhome(request):
+    all_flats = flats.objects.filter(active=False)  
     if request.method=='POST':
         price = request.POST.get('price')
         bathnumbers = request.POST.get('bathnumbers')
@@ -51,7 +52,7 @@ def adminhome(request):
                 new_img= socialhouse_images(social_house = new_social_house , image = img)
                 new_img.save()
                 return render(request , 'admin-home.html' , {'proccess':"true"})
-    return render(request , 'admin-home.html')
+    return render(request , 'admin-home.html' , {'all_flats':all_flats})
 def detils(request):
     pk = request.GET.get('flatpk')
     flatcheck = flats.objects.filter(pk=pk).first()
