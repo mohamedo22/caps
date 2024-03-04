@@ -7,6 +7,7 @@ import random
 from django_app import urls
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseBadRequest
 def index(request):
     return render(request, 'index.html')
 def login(request):
@@ -35,7 +36,8 @@ def home(request):
     return render(request, 'home.html', {'all_flats': all_flats})
 
 def adminhome(request):
-    all_flats = flats.objects.filter(active=False)  
+    all_flats = flats.objects.filter(active=False)
+    all_sc = social_house.objects.all()
     if request.method=='POST':
         price = request.POST.get('price')
         bathnumbers = request.POST.get('bathnumbers')
@@ -45,6 +47,7 @@ def adminhome(request):
         phone = request.POST.get('phone')
         mainimage = request.FILES.get('mainimage')
         allim = request.FILES.getlist('images')
+        accept_p = request.POST.get('input_accept')
         if mainimage is not None:
             new_social_house = social_house(downpayment=price,bathroomnumber=bathnumbers,bedroomnumber=bedroomnumber,detiels=detils,city=city,phone=phone,mainimage=mainimage)
             new_social_house.save()
@@ -52,7 +55,30 @@ def adminhome(request):
                 new_img= socialhouse_images(social_house = new_social_house , image = img)
                 new_img.save()
                 return render(request , 'admin-home.html' , {'proccess':"true"})
-    return render(request , 'admin-home.html' , {'all_flats':all_flats})
+    if request.method == 'GET':
+        accept_p = request.GET.get('input_accept')
+        deletep = request.GET.get('input_delete')
+        if accept_p:
+            try:
+                flat = flats.objects.get(pk=accept_p)
+                flat.active = True
+                flat.save()
+                return render(request, 'admin-home.html', {'proccess': "true", 'all_flats': all_flats})
+            except flats.DoesNotExist:
+                return HttpResponseBadRequest("Flat with the provided ID does not exist.")
+            except ValueError:
+                return HttpResponseBadRequest("Invalid input for flat ID.")
+
+        elif deletep:
+            try:
+                sc = social_house.objects.get(pk=deletep)
+                sc.delete()
+                return render(request, 'admin-home.html', {'proccess': "true"})
+            except social_house.DoesNotExist:
+                return HttpResponseBadRequest("Social house with the provided ID does not exist.")
+            except ValueError:
+                return HttpResponseBadRequest("Invalid input for social house ID.")
+    return render(request , 'admin-home.html' , {'all_flats':all_flats , 'all_sc':all_sc}) 
 def detils(request):
     pk = request.GET.get('flatpk')
     flatcheck = flats.objects.filter(pk=pk).first()

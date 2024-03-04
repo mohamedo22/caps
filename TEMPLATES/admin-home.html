@@ -9,8 +9,8 @@
     <style>
       body {
         background-color: gainsboro;
-        overflow-x: hidden;
         width: 100vw;
+        overflow-x:hidden;
       }
       * {
         padding: 0;
@@ -186,6 +186,7 @@
     margin: auto;
     margin-top: 2rem;
     transform: translateX(5px);
+    overflow:hidden;
   }
   #ul-header button {
     background-color: rgba(192, 192, 192, 0.164);
@@ -241,16 +242,102 @@
   display: flex;
   width:fit-content;
   gap: 30rem;
+  margin-top:1rem;
+  margin-left:19rem;
 }
 #orders
   {
     background-color: white;
     border-radius: 10px;
-    width: 40vw;
-    height: 40vw;
+    width: fit-content;
+    height: fit-content;
     padding: 3rem;
     box-sizing: border-box;
-    margin-left:23rem;
+    margin-left:0rem;
+  }
+#socailhouses
+  {
+    background-color: white;
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+    padding: 3rem;
+    box-sizing: border-box;
+    margin-left:0rem;
+  }
+  .continer-accept-btn svg
+  {
+    width:.8rem;
+    height:.8rem;
+  }
+  .continer-accept-btn
+  {
+    border-radius: 100%;
+    width:1.5rem;
+    height:1.5rem;
+    background-color:transparent;
+    border: 1px solid silver;
+    padding: .3rem 0rem;
+    outline: none;
+    cursor: pointer;
+    transition:all 800ms
+  }
+  .continer-accept-btn:hover
+  {
+    background-color:black;
+  }
+  .continer-accept-btn:hover svg path
+  {
+    fill:white;
+  }
+  .flat-contaniers
+  {
+    border: 1px solid silver;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem 1rem;
+    width: 40vw;
+    border-radius: 20px;
+    gap:5rem;
+  }
+  .sc-contaniers
+  {
+    border: 1px solid silver;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem 1rem;
+    width: 40vw;
+    border-radius: 20px;
+    gap:5rem;
+  }
+  .delete-btn
+  {
+    background-color:transparent;
+    border:1px solid red;
+    padding:.3rem .8rem;
+    border-radius:8px;
+    cursor:pointer;
+  }
+  .delete-btn:hover
+  {
+    background-color:red;
+    box-shadow:0px 0px 6px 2px red;
+  }
+  .flat-imgs
+  {
+    width: 8rem;
+    height: 8rem;
+    border-radius:15px;
+    cursor:pointer;
+  }
+  .sc-imgs
+  {
+    width: 8rem;
+    height: 8rem;
+    border-radius:15px;
+    cursor:pointer;
   }
 #add_social_house
 {
@@ -282,13 +369,20 @@
     <div id="bod" style="">
         <header>
             <ul id="ul-header">
-              <button >orders</button>
-              <button class="active">Add Social housing</button>
-              <button >Social housing</button>
+              <button onclick="move_to_order()" class="active btn-nvg">orders</button>
+              <button class="btn-nvg active" onclick="move_to_Add_Social_housing()">Add Social housing</button>
+              <button class="btn-nvg active" onclick="move_to_Social_housing()">Social housing</button>
             </ul>
         </header>
     <div id="cont_of_cat">   
     <div id="orders">
+      {% for flat in all_flats %}
+        <div class="flat-contaniers" pk="{{flat.pk}}">
+          <img src="{{flat.mainimage.url}}" class="flat-imgs" alt="">
+          <p>Phone Number: 0{{flat.phone}}</p>
+          <button class="continer-accept-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M342.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 178.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l80 80c12.5 12.5 32.8 12.5 45.3 0l160-160zm96 128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 402.7 54.6 297.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l256-256z"/></svg></button>
+        </div>
+      {% endfor %}
     </div>
     <div id="add_social_house">      
       <img src="{%static 'images/img-1.jpg'%}" id="img" />
@@ -312,21 +406,46 @@
         <input type="file" required name="images" multiple id="">
         <button id="btn-form" type="submit"><div id="pinb">Add</div></button>
       </form>
-  </div>
+      <form id="form_for_accept" hidden>
+        <input id="input_for_accept" hidden name="input_accept" type="text" value="">
+        <input id="input_for_delete" hidden name="input_delete" type="text" value="">
+      </form>
+    </div>
+    <div id="socailhouses">
+      {% for sc in all_sc %}
+        <div class="sc-contaniers" pk="{{sc.pk}}">
+          <img src="{{sc.mainimage.url}}" class="sc-imgs" alt="">
+          <p>{{sc.title}}</p>
+          <button class="delete-btn">Delete</button>
+        </div>
+      {% endfor %}
+    </div>
   </div> 
     <p id="check_proccess" hidden>{{proccess}}</p>
   </div>
     <script>
+      function move_to_order()
+      {
+        document.getElementById("cont_of_cat").style.marginLeft="";
+      }
+      function move_to_Social_housing()
+      {
+        document.getElementById("cont_of_cat").style.marginLeft="-135vw";
+      }
+      function move_to_Add_Social_housing()
+      {
+        document.getElementById("cont_of_cat").style.marginLeft="-56vw";
+      }
       {% comment %} setTimeout(function () {
         document.getElementById("loader").style.display = "none";
         document.getElementById("bod").style.display = "block";
       }, 1500); {% endcomment %}
+      
         if(document.getElementById("check_proccess").textContent =="true" )
         {
             Swal.fire({
                 title:'Success proccess',
                 icon:'success',
-                text:'flat has been added'
             });
         }
         window.onload = function (){
@@ -337,6 +456,35 @@
           });
           
         }
+        let allflats = document.querySelectorAll(".flat-imgs");
+      allflats.forEach(function (flat) {
+        flat.addEventListener("click", function () {
+          let pk = this.parentElement.getAttribute("pk");
+          location.href = `/Detils/?flatpk=${pk}`;
+        });
+      });
+      let all_accept_btn = document.querySelectorAll(".continer-accept-btn");
+      all_accept_btn.forEach(function(btn)
+      {
+        btn.onclick = function()
+        {
+          let pk = btn.parentElement.getAttribute("pk");
+          document.getElementById("input_for_accept").value = pk;
+          document.getElementById("input_for_delete").value = null;
+          document.getElementById("form_for_accept").submit();
+        }
+      });
+      let deletebtns = document.querySelectorAll(".delete-btn");
+      deletebtns.forEach(function(btn)
+      {
+        btn.onclick = function()
+        {
+          let pk = btn.parentElement.getAttribute("pk");
+          document.getElementById("input_for_delete").value = pk;
+          document.getElementById("input_for_accept").value = null;
+          document.getElementById("form_for_accept").submit();
+        }
+      });
     </script>
   </body>
 </html>

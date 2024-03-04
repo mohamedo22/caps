@@ -118,7 +118,7 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         margin-top:6.2rem;
-        margin-left:3.2rem;
+        margin-left:3.5rem;
       }
       svg
       {
@@ -161,7 +161,7 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         margin-top:-5.4rem;
-        margin-left:68.75rem;
+        margin-left:69.12rem;
       }
       #lar
       {
@@ -243,7 +243,7 @@
   <body>
     <img src="{% static "images/loader.gif" %}" id="loader" alt="" />
     <div id="bod" style="display: none">
-    <a
+    {% comment %} <a
       href="{%url 'home'%}"
       style="
         font-size: 2rem;
@@ -254,7 +254,7 @@
         z-index: 1;
       "
       >⬅</a
-    >
+    > {% endcomment %}
     <div class="cont">
       <p id="lar">⬅</p>
       <p id="rar">➡</p>

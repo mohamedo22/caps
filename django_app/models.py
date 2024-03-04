@@ -25,6 +25,7 @@ class flat_images(models.Model):
     flat = models.ForeignKey(flats, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='flat_images/')
 class social_house(models.Model):
+    title = models.CharField(max_length=100,null=True)
     downpayment = models.IntegerField()
     bathroomnumber=models.IntegerField()
     bedroomnumber=models.IntegerField()
