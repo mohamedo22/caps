@@ -365,8 +365,8 @@
     </style>
   </head>
   <body>
-    {% comment %} <img src="{% static "images/loader.gif" %}" id="loader" alt="" /> {% endcomment %}
-    <div id="bod" style="">
+    <img src="{% static "images/loader.gif" %}" id="loader" alt="" />
+    <div id="bod" style="display:none;">
         <header>
             <ul id="ul-header">
               <button onclick="move_to_order()" class="active btn-nvg">orders</button>
@@ -406,7 +406,8 @@
         <input type="file" required name="images" multiple id="">
         <button id="btn-form" type="submit"><div id="pinb">Add</div></button>
       </form>
-      <form id="form_for_accept" hidden>
+      <form id="form_for_accept" style="display:none;">
+        {% csrf_token %}
         <input id="input_for_accept" hidden name="input_accept" type="text" value="">
         <input id="input_for_delete" hidden name="input_delete" type="text" value="">
       </form>
@@ -436,10 +437,10 @@
       {
         document.getElementById("cont_of_cat").style.marginLeft="-56vw";
       }
-      {% comment %} setTimeout(function () {
+      setTimeout(function () {
         document.getElementById("loader").style.display = "none";
         document.getElementById("bod").style.display = "block";
-      }, 1500); {% endcomment %}
+      }, 1500);
       
         if(document.getElementById("check_proccess").textContent =="true" )
         {

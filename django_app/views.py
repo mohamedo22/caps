@@ -31,10 +31,12 @@ def home(request):
     all_flats = flats.objects.filter(active=True)   
     search = request.GET.get('search')
     if search is not None:
-        s_f = flats.objects.filter(city__icontains=search)
+        s_f = flats.objects.filter(city__icontains=search , active = True)
         return render(request, 'home.html', {'all_flats': s_f})
     return render(request, 'home.html', {'all_flats': all_flats})
-
+def socailhouse(request):
+    all_sc = social_house.objects.all()  
+    return render(request, 'social_house.html', {'all_flats': all_sc})
 def adminhome(request):
     all_flats = flats.objects.filter(active=False)
     all_sc = social_house.objects.all()

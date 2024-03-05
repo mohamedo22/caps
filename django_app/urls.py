@@ -11,5 +11,6 @@ urlpatterns = [
     path('Detils/' , detils , name='detils'),
     path('addflat/' , addflat , name='flat'),
     path('signup/' , signup , name='signup'),
-    path('confirmmail/', confirmmail , name='confirmemail')
+    path('confirmmail/', confirmmail , name='confirmemail'),
+    path('socailhouses/', socailhouse , name='socilhouse'),
 ]

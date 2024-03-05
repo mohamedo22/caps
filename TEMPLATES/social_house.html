@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>social houses</title>
     <style>
       * {
         padding: 0;
@@ -109,10 +109,17 @@
       }
       .flat {
         background-color: white;
+        display:flex;
+        gap:20px;
         padding: 1rem 2rem;
         border-radius: 8px;
-        height: 20rem;
+        height: fit-content;
+        width:fit-content;
         cursor: pointer;
+      }
+      .flat div p
+      {
+        margin-top:1rem;
       }
       .lr {
         position: absolute;
@@ -167,18 +174,21 @@
         /><button type="submit">🔎</button>
       </form>
       <ul id="ul-header">
-        <a href="{%url 'home'%}"><button class="active" style="background-color:silver;">Flats</button></a>
-        <a href="{%url 'socilhouse'%}"><button>Social housing</button></a>
+        <a href="{%url 'home'%}"><button >Flats</button></a>
+        <a href="{%url 'socilhouse'%}" class="active"><button>Social housing</button></a>
       </ul>
       <a href="{% url "flat" %}"><button id="btn-header">Add Flat</button></a>
     </header>
     <div id="continer">
-      {% for flat in all_flats %}
-      <div class="flat" pk="{{flat.pk}}">
-        <img src="{{flat.mainimage.url}}" class="flat-imgs" alt="" />
-        <p style="color: black; margin-top: 2rem">Price: ${{flat.downpayment}}</p>
-        <p style="color: black; margin-top: 2rem">City: {{flat.city}}</p>
-      </div>
+        {% for flat in all_flats %}
+        <div class="flat" pk="{{flat.pk}}">
+            <img src="{{flat.mainimage.url}}" class="flat-imgs" alt="" />
+            <div>
+            <p>${{flat.downpayment}}</p>
+            <p>{{flat.detiels}}</p>
+            <p>{{flat.phone}}</p>
+            </div>
+        </div>
       {% endfor %}
     </div>
   </div>
