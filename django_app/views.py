@@ -1,4 +1,5 @@
 from django.shortcuts import render , redirect , HttpResponseRedirect
+from django.views.decorators.csrf import csrf_protect
 from .models import *
 from datetime import *
 from django.core.mail import send_mail
@@ -37,6 +38,7 @@ def home(request):
 def socailhouse(request):
     all_sc = social_house.objects.all()  
     return render(request, 'social_house.html', {'all_flats': all_sc})
+@csrf_protect
 def adminhome(request):
     all_flats = flats.objects.filter(active=False)
     all_sc = social_house.objects.all()
@@ -47,16 +49,16 @@ def adminhome(request):
         city = request.POST.get('city')
         detils = request.POST.get('detils')
         phone = request.POST.get('phone')
+        title = request.POST.get('title')
         mainimage = request.FILES.get('mainimage')
         allim = request.FILES.getlist('images')
         accept_p = request.POST.get('input_accept')
-        if mainimage is not None:
-            new_social_house = social_house(downpayment=price,bathroomnumber=bathnumbers,bedroomnumber=bedroomnumber,detiels=detils,city=city,phone=phone,mainimage=mainimage)
-            new_social_house.save()
-            for img in allim:
-                new_img= socialhouse_images(social_house = new_social_house , image = img)
-                new_img.save()
-                return render(request , 'admin-home.html' , {'proccess':"true"})
+        new_social_house = social_house(downpayment=price,bathroomnumber=bathnumbers,bedroomnumber=bedroomnumber,detiels=detils,city=city,phone=phone,mainimage=mainimage , title=title)
+        new_social_house.save()
+        for img in allim:
+            new_img= socialhouse_images(social_house = new_social_house , image = img)
+            new_img.save()
+            return render(request, 'admin-home.html', {'proccess': "true" , 'all_flats':all_flats , 'all_sc':all_sc})
     if request.method == 'GET':
         accept_p = request.GET.get('input_accept')
         deletep = request.GET.get('input_delete')
@@ -65,7 +67,7 @@ def adminhome(request):
                 flat = flats.objects.get(pk=accept_p)
                 flat.active = True
                 flat.save()
-                return render(request, 'admin-home.html', {'proccess': "true", 'all_flats': all_flats})
+                return render(request, 'admin-home.html', {'proccess': "true" , 'all_flats':all_flats , 'all_sc':all_sc})
             except flats.DoesNotExist:
                 return HttpResponseBadRequest("Flat with the provided ID does not exist.")
             except ValueError:
@@ -75,7 +77,7 @@ def adminhome(request):
             try:
                 sc = social_house.objects.get(pk=deletep)
                 sc.delete()
-                return render(request, 'admin-home.html', {'proccess': "true"})
+                return render(request, 'admin-home.html', {'proccess': "true" , 'all_flats':all_flats , 'all_sc':all_sc})
             except social_house.DoesNotExist:
                 return HttpResponseBadRequest("Social house with the provided ID does not exist.")
             except ValueError:

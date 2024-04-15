@@ -386,7 +386,7 @@
     </div>
     <div id="add_social_house">      
       <img src="{%static 'images/img-1.jpg'%}" id="img" />
-      <form method="post" enctype="multipart/form-data">
+      <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="number" id="price" required placeholder=" " name="price" />
         <p style="left: -1.5rem">Down payment</p>
@@ -396,18 +396,19 @@
         <p style="left: -.1rem">Number of Bedrooms</p>
         <input type="text" placeholder=" " required name="city" id="">
         <p style="left: -4rem">City</p>
+        <input type="text" placeholder=" " required name="title" id="">
+        <p style="left: 0rem">Name of Socail house</p>
         <p style="left: -4rem;top:-.5rem;">The Deteils</p>
         <textarea name="detils" style="margin-bottom:2rem;" id="" cols="40" rows="10"></textarea>
-        <input placeholder=" " style="margin-top:2rem;" type="number" required name="phone" >
+        <input placeholder=" " id="phone" style="margin-top:2rem;" type="number" required name="phone" >
         <p>Phone number</p>
         <div>Main image</div>
-        <input type="file" required name="mainimage"  id="">
+        <input type="file" required name="mainimage"  id="mainimage">
         <div>select images for flat</div>
         <input type="file" required name="images" multiple id="">
         <button id="btn-form" type="submit"><div id="pinb">Add</div></button>
       </form>
       <form id="form_for_accept" style="display:none;">
-        {% csrf_token %}
         <input id="input_for_accept" hidden name="input_accept" type="text" value="">
         <input id="input_for_delete" hidden name="input_delete" type="text" value="">
       </form>
@@ -449,15 +450,7 @@
                 icon:'success',
             });
         }
-        window.onload = function (){
-          let allinputs = document.querySelectorAll("input");
-          allinputs.forEach(function(input)
-          {
-            input.value = "";
-          });
-          
-        }
-        let allflats = document.querySelectorAll(".flat-imgs");
+      let allflats = document.querySelectorAll(".flat-imgs");
       allflats.forEach(function (flat) {
         flat.addEventListener("click", function () {
           let pk = this.parentElement.getAttribute("pk");
