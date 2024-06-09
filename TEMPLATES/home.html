@@ -94,7 +94,7 @@
         background-color:silver;
       }
       #continer {
-        width: 83.5%;
+        width: 98%;
         height: fit-content;
         display: flex;
         flex-wrap: wrap;
@@ -176,7 +176,7 @@
       {% for flat in all_flats %}
       <div class="flat" pk="{{flat.pk}}">
         <img src="{{flat.mainimage.url}}" class="flat-imgs" alt="" />
-        <p style="color: black; margin-top: 2rem">Price: ${{flat.downpayment}}</p>
+        <p style="color: black; margin-top: 2rem">Price: EG {{flat.price}}</p>
         <p style="color: black; margin-top: 2rem">City: {{flat.city}}</p>
       </div>
       {% endfor %}
