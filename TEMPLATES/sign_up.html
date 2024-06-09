@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       body {
@@ -28,62 +29,6 @@
         height: 20rem;
         border-bottom-right-radius: 90%;
         filter: brightness(60%);
-      }
-      input {
-        padding: 10px;
-        width: 90%;
-        height: 1rem;
-        border: none;
-        outline: none;
-        border-bottom: 1px solid black;
-        margin-bottom: 1rem;
-      }
-      form {
-        width: fit-content;
-        margin: auto;
-        margin-top: -12rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: white;
-        border-radius: 12px;
-        padding: 2rem 5rem;
-      }
-      #btn-form {
-        background-color: transparent;
-        outline: none;
-        border: 1px solid black;
-        border-radius: 8px;
-        width: 4rem;
-        padding: 0.5rem 1rem;
-        position: relative;
-        cursor: pointer;
-        overflow: hidden;
-      }
-      #pinb {
-        position: relative;
-        z-index: 2;
-        width: 3rem;
-        margin-left: -0.4rem;
-      }
-      #btn-form::before {
-        content: "";
-        position: absolute;
-        width: 4rem;
-        height: 4rem;
-        border-radius: 100%;
-        background-color: black;
-        left: 4rem;
-        transition: 1s all;
-      }
-
-      #btn-form:hover #pinb {
-        color: white;
-      }
-
-      #btn-form:hover::before {
-        scale: 5;
       }
       /* button::after {
         content: "";
@@ -122,20 +67,6 @@
           scale: 0;
         }
       } */
-      form p {
-        position: relative;
-        top: -3rem;
-        left: -2rem;
-        color: black;
-        transition: all 0.3s ease;
-        pointer-events: none;
-      }
-      input:focus + p,
-      input:not(:placeholder-shown) + p {
-        top: -3.5rem;
-        font-size: 0.8em;
-        color: silver;
-      }
   @media screen and (max-width: 768px) {
     #img
     {
@@ -155,6 +86,41 @@
     margin: auto;
     margin-top: 25%;
   }
+      .container
+      {
+        width: 50vw;
+        height: 50vh;
+        margin-top:-18rem;
+      }
+  .signup-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .signup-container h2 {
+        margin-bottom: 1rem;
+    }
+    .signup-container form {
+        display: grid;
+        gap: 1rem;
+    }
+    .signup-container form input {
+        padding: 1rem;
+    }
+  .signup-container form button {
+      padding: 1rem;
+  }
+  .icon {
+      width: 24px;
+      height: 24px;
+  }
+  @media screen and (max-width:800px) {
+    .container
+    {
+      width: 100vw;
+    }
+  }
     </style>
   </head>
   <body>
@@ -172,18 +138,40 @@
       "
       >⬅</a>
     <img src="{%static 'images/img-1.jpg'%}" id="img" />
-    <form method="post">
-      {% csrf_token %}
-      <input type="text" id="email-text" placeholder=" " name="email" />
-      <p style="left: -2.5rem">E-mail</p>
-      <input type="password" id="password-text" placeholder=" " name="password" />
-      <p>Password</p>
-      <input type="password" required id="conpassword-text" placeholder=" " />
-      <p style="margin-left:2rem;">confirm Password</p>
-      <input type="number" required id="nationalid" placeholder=" " name="nationalid" />
-      <p style="margin-left:3rem;">Enter your national ID</p>
-      <button id="btn-form" type="submit"><div id="pinb">Sign up</div></button>
-    </form>
+    <main class="container">
+      <div class="grid">
+          <section>
+              <div class="signup-container">
+                  <hgroup>
+                      <h2>Sign Up</h2>
+                      <h3>Create your account</h3>
+                  </hgroup>
+                  <form method="POST">
+                    {% csrf_token %}
+                      <label for="email">
+                          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" class="icon"> Email
+                      </label>
+                      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                      <label for="password">
+                          <img src="https://cdn-icons-png.flaticon.com/512/565/565655.png" alt="Password Icon" class="icon"> Password
+                      </label>
+                      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                      <label for="confirm-password">
+                          <img src="https://cdn-icons-png.flaticon.com/512/565/565655.png" alt="Confirm Password Icon" class="icon"> Confirm Password
+                      </label>
+                      <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+                      <label for="national-id">
+                          <img src="https://cdn-icons-png.flaticon.com/512/4320/4320453.png" alt="ID Icon" class="icon"> National ID
+                      </label>
+                      <input type="text" id="national-id" name="nationalid" placeholder="Enter your national ID" required>
+                      <button type="submit" style="background-color: black;">Sign Up</button>
+                      <br>
+                      <a href="{% url "login" %}" style="margin:auto;">alraedy have account</a>
+                  </form>
+              </div>
+          </section>
+      </div>
+  </main>
     <p id="check_v" hidden>{{check}}</p>
   </div>
     <script>
@@ -200,10 +188,10 @@
                 icon: "error",
             });
         }
-        let email = document.getElementById("email-text");
-        let pass = document.getElementById("password-text");
-        let confirmpass = document.getElementById("conpassword-text");
-        let nationalid = document.getElementById("nationalid");
+        let email = document.getElementById("email");
+        let pass = document.getElementById("password");
+        let confirmpass = document.getElementById("confirm-password");
+        let nationalid = document.getElementById("national-id");
         document.forms[0].onsubmit = function (ev) {
             if (email.value == "" || pass.value == "") {
                 Swal.fire({
