@@ -7,6 +7,188 @@
     <title>Index</title>
     <link rel="stylesheet" href="{%static 'css/index_style.css'%}" />
     <style>
+      
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: all 800ms;
+  color: white;
+}
+body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+#uparrow {
+  width: fit-content;
+  background-color: black;
+  border-radius: 10px;
+  color: white;
+  padding: 0.2rem 1rem;
+  position: fixed;
+  top: 33rem;
+  left: 90vw;
+  outline: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+#uparrow {
+  animation: move-up 1s alternate-reverse infinite;
+}
+@keyframes move-up {
+  0% {
+    padding-top: 0.8rem;
+  }
+  100% {
+    padding-top: -0.8rem;
+  }
+}
+#header {
+  width: 100%;
+  height: 3rem;
+  background-color: transparent;
+  position: fixed;
+  top: 0px;
+  
+}
+#title {
+  width: fit-content;
+  padding-top: 1rem;
+  margin-left: 47%;
+  font-size: 1.1rem;
+  margin-bottom: -1.7rem;
+}
+
+#header a {
+  width: fit-content;
+  margin-top: -10rem;
+  margin-left: 80%;
+}
+#header a button {
+  background-color: transparent;
+  outline: none;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 8px;
+  width: 4rem;
+  padding: 0.5rem 1rem;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+#header a button p {
+  position: relative;
+  z-index: 2;
+  width: 3rem;
+  margin-left: -0.4rem;
+}
+#header a button::before {
+  content: "";
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100%;
+  background-color: rgb(250, 250, 250);
+  left: 4rem;
+  transition: 1s all;
+}
+#header a button:hover p {
+  color: black;
+}
+#header a button:hover::before {
+  scale: 5;
+}
+#sc1 {
+  width: 100%;
+  height: 55rem;
+}
+.co_p {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+  padding-top: 10rem;
+  
+}
+.co_p > p:nth-child(1) {
+  font-size: 7vw;
+  color: white;
+}
+.co_p > p:nth-child(2) {
+  font-size: 1.1rem;
+  color: white;
+  text-align: center;
+  margin-top: 2rem;
+}
+#sec2 {
+  background-color: black;
+  width: 100%;
+  height: 50rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#sc3 {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100%;
+  height: 35rem;
+}
+#sec4 {
+  background-color: black;
+  width: 100%;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+footer {
+  border-radius: 25px 25px 0px 0px;
+  padding: 1rem 2rem;
+  background-color: white;
+}
+footer p {
+  color: black;
+}
+#loader {
+  display: block;
+  width: fit-content;
+  margin: auto;
+  margin-top: 25%;
+}
+@media screen and (max-width: 768px) {
+  #title {
+    margin-left: 35%;
+  }
+  #sc1 {
+    height: 45rem;
+  }
+  #uparrow {
+    left: 85vw;
+  }
+  #loader {
+    margin-top: 85%;
+  }
+}
+@media (min-width: 768px) and (max-width: 1000px) {
+  #title {
+    margin-left: 46%;
+  }
+  #sc1 {
+    height: 53rem;
+  }
+  #uparrow {
+    top: 58rem;
+  }
+  #loader {
+    margin-top: 60%;
+  }
+}
       #sc3 {
    
       }
